@@ -14,3 +14,8 @@ style:
 
 watch:
 	docker-compose up
+
+test:
+	docker-compose up -d
+	docker exec -it api python manage.py test
+	docker-compose down

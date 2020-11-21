@@ -4,5 +4,5 @@ COPY . .
 RUN pip install -r requirements.txt && chmod u+x scripts/*.sh \
     && useradd -ms /bin/bash django
 
-USER django
+# USER django
 ENTRYPOINT ["gunicorn", "-c", "gunicorn.py", "dm_api.wsgi"]

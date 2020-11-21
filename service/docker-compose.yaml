@@ -13,7 +13,7 @@ services:
     - runserver
     - 0.0.0.0:8000
     environment:
-    - DJANGO_SETTINGS_MODULE=dm_api.settings.production
+    - DJANGO_SETTINGS_MODULE=dm_api.settings.dev
     - REDIS_DB=0
     - REDIS_HOST=redis
     depends_on:

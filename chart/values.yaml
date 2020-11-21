@@ -1,0 +1,84 @@
+# Default values for dm-api.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+image:
+  repository: quay.io/mrmm/dm-rest-api
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: "f2ea18a"
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+podAnnotations: {}
+
+podSecurityContext: {}
+  # fsGroup: 2000
+
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+service:
+  type: ClusterIP
+  port: 80
+  annotations: {}
+ingress:
+  enabled: true
+  annotations: {}
+  hosts:
+    - host: dm-api.rythm.co
+      paths: ["/"]
+  tls: []
+
+resources:
+  requests:
+    memory: 250Mi
+    cpu: 200m
+  limits:
+    memory: 250Mi
+    cpu: 200m
+
+autoscaling:
+  enabled: true
+  minReplicas: 1
+  maxReplicas: 2
+  # targetCPUUtilizationPercentage: 80
+  targetMemoryUtilizationPercentage: 80
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+envVars:
+- name: "DJANGO_SETTINGS_MODULE"
+  value: "dm_api.settings.production"
+- name: REDIS_DB
+  value: "0"
+- name: REDIS_HOST
+  value: "redis-master"
+#
+## Redis service values
+redis:
+  fullnameOverride: redis
+  usePassword: false
+  clusterDomain: cluster.local

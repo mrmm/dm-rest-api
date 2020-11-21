@@ -20,7 +20,7 @@ from api.views import user_rates_view, agv_rating_view
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^ht/', include('health_check.urls')),
-    url(r'^ratings/$', user_rates_view),
-    url(r'^ratings/(?P<user>\w+)/$', user_rates_view),
-    url(r'^avg/$', agv_rating_view),
+    url(r'^ratings/$', user_rates_view, name="rating"),
+    url(r'^ratings/(?P<user>\w+)/$', user_rates_view, name="rating_user"),
+    url(r'^avg/$', agv_rating_view, name="avg_ratings"),
 ]

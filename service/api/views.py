@@ -34,7 +34,6 @@ def user_rates_view(request, *args, **kwargs):
             values={}
             for key in REDIS_CONNECTION.keys("*"):
                 values[key.decode("utf-8")] = float(REDIS_CONNECTION.get(key))
-                REDIS_CONNECTION.pexpire(key, timedelta(minutes=5))
 
             if values:
                 msg = "Found %s items" % len(values)
@@ -53,7 +52,7 @@ def user_rates_view(request, *args, **kwargs):
             i = 0
             for k in items.keys():
                 value = items.get(k)
-                REDIS_CONNECTION.setex(k, timedelta(minutes=5), value)
+                REDIS_CONNECTION.set(k, value)
                 i += 1
             response = {
                 'msg': "Value successfully stored"
@@ -72,7 +71,7 @@ def user_rates_view(request, *args, **kwargs):
             new_value = request_data[key_]
             old_value = REDIS_CONNECTION.get(key_)
             if old_value:
-                REDIS_CONNECTION.setex(key_, timedelta(minutes=5), new_value)
+                REDIS_CONNECTION.set(key_, new_value)
                 i += 1
         if i > 0:
             msg = "Successfully updated %s values" % i

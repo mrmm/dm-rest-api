@@ -14,14 +14,10 @@ ACCESS_LOGS_CONFIG = {
     "MAX_BODY_SIZE": 5*1024,
     "DEBUG_REQUESTS": [],
 }
-INSTALLED_APPS.extend(['health_check', 'health_check.contrib.redis'])
-
-MIDDLEWARE.insert(0, 'django_access_logger.AccessLogsMiddleware')
-
 
 LOGGING = {
     'version': 1,
-    'disable_existing_loggers': True,
+    'disable_existing_loggers': False,
     'formatters': {
         'verbose': {
             'format': '%(levelname)s %(asctime)s %(module)s %(process)d %(thread)d %(message)s'
