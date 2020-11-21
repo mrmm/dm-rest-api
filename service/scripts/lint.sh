@@ -2,4 +2,4 @@
 set -xe
 
 pip install pylint;
-pylint /app/dm_api;
+pylint --reports=y --output-format=parseable --exit-zero /app/dm_api;

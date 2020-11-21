@@ -14,7 +14,7 @@ REDIS_CONNECTION = settings.REDIS_CONNECTION
 
 @api_view(['GET', 'POST', 'PUT'])
 def user_rates_view(request, *args, **kwargs):
-    key_name = kwargs.get("key")
+    key_name = kwargs.get("user")
     if request.method == 'GET':
         if key_name:
             key_value = REDIS_CONNECTION.get(key_name)
@@ -22,7 +22,7 @@ def user_rates_view(request, *args, **kwargs):
                 msg = "Key '%s' was found !" % key_name
                 response = {
                     'msg': "Key '%s' was found !" % key_name,
-                    'value': key_value
+                    'value': float(key_value)
                 }
                 status = 200
             else:
@@ -33,7 +33,7 @@ def user_rates_view(request, *args, **kwargs):
         else:
             values={}
             for key in REDIS_CONNECTION.keys("*"):
-                values[key.decode("utf-8")] = REDIS_CONNECTION.get(key)
+                values[key.decode("utf-8")] = float(REDIS_CONNECTION.get(key))
                 REDIS_CONNECTION.pexpire(key, timedelta(minutes=5))
 
             if values:
