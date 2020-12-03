@@ -12,10 +12,9 @@ Following package and library have to install into your machine to run this app
 * Docker
 * docker-compose
 
-
 ### Usage
 
-This repository containts two part:
+This repository contains two part:
 1. The service source code (stored in `service`)
 2. A Helm chart with the required services to help you deploy the application on Kubernetes Cluster (in `chart`)
 

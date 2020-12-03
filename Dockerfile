@@ -1,6 +1,6 @@
 FROM python:3-stretch
 WORKDIR /app
-COPY . .
+COPY service/ .
 RUN pip install -r requirements.txt && chmod u+x scripts/*.sh \
     && useradd -ms /bin/bash django
 

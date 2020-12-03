@@ -6,7 +6,7 @@ services:
     ports:
     - 4400:8000
     volumes:
-    - ./:/app/
+    - ./service:/app/
     entrypoint:
     - python
     - manage.py
